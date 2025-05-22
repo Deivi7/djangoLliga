@@ -50,7 +50,16 @@ class Partit(models.Model):
         verbose_name_plural = 'partits'
     
     def __str__(self):
-        return f"{self.local} {self.visitant} ({self.data})"
+        return f"{self.local} - {self.visitant} ({self.data})"
+    
+    def gols_local(self):
+        gols = self.events.filter(tipus="GOL",equip=self.local).count()
+        return gols
+
+    def gols_visitant(self):
+        gols = self.events.filter(tipus="GOL",equip=self.visitant).count()
+        return gols
+    
 
 class Event(models.Model):
     TIPUS_EVENT = [
